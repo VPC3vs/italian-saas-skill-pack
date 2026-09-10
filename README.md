@@ -1,6 +1,6 @@
 # Italian SaaS Skill Pack
 
-![A hand-painted scene of SaaS documentation and video narration, with a software dashboard, an open guide, and a presenter at a microphone](assets/saas-activity.png)
+![A derpy MS Paint-style doodle of SaaS documentation and video narration, with a wonky dashboard, an open guide, and a googly-eyed presenter at a microphone](assets/saas-activity.png)
 
 Two Codex skills for explaining SaaS applications in Italian: a branded user manual and a narrated product demo. Start from the actual product, use its language and branding, and verify what the audience will read or watch.
 
@@ -89,6 +89,6 @@ These checks establish structure and helper behavior. Each real demo still needs
 
 ## Artwork and license
 
-The banner was generated with the built-in image generation tool as a gouache-and-watercolor illustration of SaaS documentation and narration. Its symbolic dashboard is not a screenshot or evidence of a real product. The [generation prompt](assets/saas-activity.prompt.md) is included.
+The banner was generated with the built-in image generation tool in deliberately derpy MS Paint style: wobbly outlines, flat colors, awkward proportions, and a googly-eyed narrator. Its symbolic dashboard is not a screenshot or evidence of a real product. The [generation prompt](assets/saas-activity.prompt.md) is included.
 
 MIT licensed. See [LICENSE](LICENSE).
