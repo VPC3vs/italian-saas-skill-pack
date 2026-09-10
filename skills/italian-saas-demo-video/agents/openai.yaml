@@ -1,0 +1,4 @@
+interface:
+  display_name: "Demo SaaS in italiano"
+  short_description: "Demo SaaS con voce femminile e durata su misura"
+  default_prompt: "Usa $italian-saas-demo-video con Graphify e Gravity per analizzare questa applicazione SaaS e creare una demo con copione e voce femminile professionale in italiano. Scegli cosa registrare e adatta la durata alla spiegazione: 2-5 minuti sono un intervallo preferito, non un limite."

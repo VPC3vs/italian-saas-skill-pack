@@ -1,0 +1,4 @@
+interface:
+  display_name: "Italian SaaS User Manual"
+  short_description: "Create branded Italian SaaS manuals as PDFs"
+  default_prompt: "Use $italian-saas-user-manual to plan and generate an Italian PDF user manual for this SaaS web app."
