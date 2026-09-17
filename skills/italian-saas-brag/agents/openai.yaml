@@ -1,0 +1,4 @@
+interface:
+  display_name: "Brag — Lancio SaaS IT/EN"
+  short_description: "Teaser SaaS per GPT, italiano e inglese"
+  default_prompt: "Usa $italian-saas-brag per creare un breve video di lancio del mio SaaS in italiano, con poster e copy social."

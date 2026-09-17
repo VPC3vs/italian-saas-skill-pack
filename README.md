@@ -2,7 +2,7 @@
 
 ![A derpy MS Paint-style doodle of SaaS documentation and video narration, with a wonky dashboard, an open guide, and a googly-eyed presenter at a microphone](assets/saas-activity.png)
 
-Two Codex skills for explaining SaaS applications in Italian: a branded user manual and a narrated product demo. Start from the actual product, use its language and branding, and verify what the audience will read or watch.
+Three Codex skills for explaining SaaS applications in Italian: a branded user manual, a narrated product demo, and an Italian-first bilingual launch teaser. Start from the actual product, use its language and branding, and verify what the audience will read or watch.
 
 ## Included skills
 
@@ -10,21 +10,34 @@ Two Codex skills for explaining SaaS applications in Italian: a branded user man
 | --- | --- | --- |
 | [italian-saas-user-manual](skills/italian-saas-user-manual/SKILL.md) | Branded Italian PDF manual | Inspect the app, propose the outline and style, obtain approval, then generate and visually verify the PDF. |
 | [italian-saas-demo-video](skills/italian-saas-demo-video/SKILL.md) | Narrated MP4 and complete Italian script; validated subtitles when produced | Use Graphify and Gravity to select verified workflows, write the commentary, record the app, generate female Italian narration, and check the finished video. |
+| [italian-saas-brag](skills/italian-saas-brag/SKILL.md) | Teaser MP4, poster e copy IT/EN | Concept e storyboard verificati, composizione Hyperframes, voce opzionale e controllo separato per lingua. |
 
-The video length follows the explanation. **Two to five minutes is a preferred range, not a cap.** Complex workflows may need longer; simple apps should not be padded. Narration uses professional Italian and a female voice, with pronunciation and pacing reviewed before production.
+The narrated demo length follows the explanation. **Two to five minutes is a preferred range, not a cap.** Complex workflows may need longer; simple apps should not be padded. Narration uses professional Italian and a female voice, with pronunciation and pacing reviewed before production.
+
+## Brag — teaser di lancio / launch teaser
+
+`italian-saas-brag` adatta [latent-spaces/brag](https://github.com/latent-spaces/brag) a GPT/Codex: italiano predefinito, inglese selezionabile e due versioni separate con `--lang both`. Produce teaser da 15–25 secondi (o della durata richiesta), poster, storyboard, brief e copy social. La voce è facoltativa e usa un provider disponibile che supporti la lingua richiesta.
+
+```text
+Usa $italian-saas-brag per creare il video di lancio di questa app in italiano.
+Usa $italian-saas-brag --lang both --voice --format vertical per due versioni IT/EN.
+Use $italian-saas-brag --lang en --tone polished for an English launch teaser.
+```
+
+Hyperframes, Node.js e FFmpeg sono dipendenze di produzione da verificare nell'ambiente; il pack non li installa. Non sono inclusi servizi vocali o asset audio. Se manca il renderer, la skill prepara i materiali e segnala il blocco senza dichiarare un video completato. [Provenienza e differenze](skills/italian-saas-brag/references/provenance.md).
 
 ## Install
 
-Install both skills with Codex's skill-installer. On Windows PowerShell:
+Install the three skills with Codex's skill-installer. On Windows PowerShell:
 
 ```powershell
-python "$env:USERPROFILE\.codex\skills\.system\skill-installer\scripts\install-skill-from-github.py" --repo VPC3vs/italian-saas-skill-pack --path skills/italian-saas-user-manual skills/italian-saas-demo-video
+python "$env:USERPROFILE\.codex\skills\.system\skill-installer\scripts\install-skill-from-github.py" --repo VPC3vs/italian-saas-skill-pack --path skills/italian-saas-user-manual skills/italian-saas-demo-video skills/italian-saas-brag
 ```
 
 On macOS or Linux:
 
 ```bash
-python3 "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-installer/scripts/install-skill-from-github.py" --repo VPC3vs/italian-saas-skill-pack --path skills/italian-saas-user-manual skills/italian-saas-demo-video
+python3 "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-installer/scripts/install-skill-from-github.py" --repo VPC3vs/italian-saas-skill-pack --path skills/italian-saas-user-manual skills/italian-saas-demo-video skills/italian-saas-brag
 ```
 
 The installer refuses an existing destination. If a skill is already installed, review and back up that version outside skill discovery directories before replacing it. A custom Codex installation may keep the system installer elsewhere; use its actual path.
@@ -57,7 +70,7 @@ Existing graph relationships guide investigation. Current source and the running
 
 Recording requires accessible app screens and a supported capture tool. Speech requires a suitable available voice provider. The bundled [Windows narration helper](skills/italian-saas-demo-video/scripts/narrate_windows.ps1) can use an installed Italian female System.Speech voice; this is a synthetic desktop fallback, not a studio recording. The [assembly helper](skills/italian-saas-demo-video/scripts/assemble_demo.py) combines prepared footage and PCM WAV narration using Python and FFmpeg, producing 1080p H.264/AAC MP4. It can discover an installed `imageio_ffmpeg` runtime.
 
-The manual chooses an available PDF production route. Neither skill includes account credentials, production data, paid speech access, or a SaaS application. Use the product's authorized demo environment for recording actions.
+The manual chooses an available PDF production route. No skill includes account credentials, production data, paid speech access, or a SaaS application. Use the product's authorized demo environment for recording actions.
 
 ## Repository layout
 
@@ -66,6 +79,11 @@ assets/
   saas-activity.png
   saas-activity.prompt.md
 skills/
+  italian-saas-brag/
+    SKILL.md
+    LICENSE
+    agents/openai.yaml
+    references/
   italian-saas-user-manual/
     SKILL.md
     agents/openai.yaml
@@ -79,11 +97,13 @@ LICENSE
 README.md
 ```
 
-The layout follows [gravity-swarm](https://github.com/VPC3vs/gravity-swarm): shared presentation assets at the root and installable skills under `skills/`. These two skill folders are preserved from their local source versions.
+The layout follows [gravity-swarm](https://github.com/VPC3vs/gravity-swarm): shared presentation assets at the root and installable skills under `skills/`. The manual and demo folders are preserved from their local source versions; Brag is adapted from its credited upstream.
 
 ## Validation
 
-Both skill folders were checked with skill-creator's `quick_validate.py`. Packaging checks cover local links, metadata, exact source copies, and archive integrity. Before packaging, the video helpers were exercised on Windows with female Italian speech generation, still/video input, mixed frame rates, non-square pixels, full MP4 decoding, output preservation, and a timing plan beyond five minutes.
+The original two skill folders were checked with skill-creator's `quick_validate.py`. Packaging checks cover local links, metadata, exact source copies, and archive integrity. Before packaging, the video helpers were exercised on Windows with female Italian speech generation, still/video input, mixed frame rates, non-square pixels, full MP4 decoding, output preservation, and a timing plan beyond five minutes.
+
+The Brag adaptation is checked for skill structure, local references and installation parity; a sample Hyperframes render is not part of its packaging validation.
 
 These checks establish structure and helper behavior. Each real demo still needs review of its recorded actions, synchronization, pronunciation, voice quality, and exported playback. No benchmark or token-saving claim is made.
 
@@ -91,4 +111,4 @@ These checks establish structure and helper behavior. Each real demo still needs
 
 The banner was generated with the built-in image generation tool in deliberately derpy MS Paint style: wobbly outlines, flat colors, awkward proportions, and a googly-eyed narrator. Its symbolic dashboard is not a screenshot or evidence of a real product. The [generation prompt](assets/saas-activity.prompt.md) is included.
 
-MIT licensed. See [LICENSE](LICENSE).
+MIT licensed. See [LICENSE](LICENSE). Brag retains its upstream copyright and [MIT notice](skills/italian-saas-brag/LICENSE); third-party upstream audio is not bundled.
