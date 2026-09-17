@@ -16,7 +16,9 @@ The narrated demo length follows the explanation. **Two to five minutes is a pre
 
 ## Brag — teaser di lancio / launch teaser
 
-`italian-saas-brag` adatta [latent-spaces/brag](https://github.com/latent-spaces/brag) a GPT/Codex: italiano predefinito, inglese selezionabile e due versioni separate con `--lang both`. Produce teaser da 15–25 secondi (o della durata richiesta), poster, storyboard, brief e copy social. La voce è facoltativa e usa un provider disponibile che supporti la lingua richiesta.
+`italian-saas-brag` traduce [latent-spaces/brag](https://github.com/latent-spaces/brag) per GPT/Codex: italiano predefinito, inglese selezionabile e due versioni separate con `--lang both`. Mantiene il workflow originale completo: teaser da 15–25 secondi, sette toni, storyboard, Hyperframes, musica e SFX, beat sync, reattività audio, poster incorporato nel frame 0 e copy social. La voce resta facoltativa, con Kokoro tramite Hyperframes; per l’italiano viene selezionata una voce italiana dello stesso provider.
+
+La guida principale è tradotta in italiano; il testo inglese completo è in [SKILL.en.md](skills/italian-saas-brag/SKILL.en.md). Tutti i riferimenti tecnici inglesi, gli script, le cinque tracce musicali, gli effetti sonori e i metadati originali sono conservati integralmente. Le sole aggiunte operative riguardano lingua IT/EN e risoluzione dei percorsi in Codex.
 
 ```text
 Usa $italian-saas-brag per creare il video di lancio di questa app in italiano.
@@ -24,7 +26,7 @@ Usa $italian-saas-brag --lang both --voice --format vertical per due versioni IT
 Use $italian-saas-brag --lang en --tone polished for an English launch teaser.
 ```
 
-Hyperframes, Node.js e FFmpeg sono dipendenze di produzione da verificare nell'ambiente; il pack non li installa. Non sono inclusi servizi vocali o asset audio. Se manca il renderer, la skill prepara i materiali e segnala il blocco senza dichiarare un video completato. [Provenienza e differenze](skills/italian-saas-brag/references/provenance.md).
+Hyperframes, Node.js e FFmpeg restano le dipendenze di produzione originali; il pack non installa questi runtime o le skill di dominio Hyperframes. L'analizzatore musicale originale include `pyproject.toml` e `uv.lock` per il percorso Python con `uv`. Sono inclusi gli asset audio originali, con i crediti e le note upstream conservati. [Audio e crediti](skills/italian-saas-brag/references/audio.md), [note originali della musica](skills/italian-saas-brag/assets/music/README.md).
 
 ## Install
 
@@ -81,9 +83,12 @@ assets/
 skills/
   italian-saas-brag/
     SKILL.md
+    SKILL.en.md
     LICENSE
     agents/openai.yaml
     references/
+    scripts/
+    assets/
   italian-saas-user-manual/
     SKILL.md
     agents/openai.yaml
@@ -97,13 +102,13 @@ LICENSE
 README.md
 ```
 
-The layout follows [gravity-swarm](https://github.com/VPC3vs/gravity-swarm): shared presentation assets at the root and installable skills under `skills/`. The manual and demo folders are preserved from their local source versions; Brag is adapted from its credited upstream.
+The layout follows [gravity-swarm](https://github.com/VPC3vs/gravity-swarm): shared presentation assets at the root and installable skills under `skills/`. The manual and demo folders are preserved from their local source versions; Brag preserves its complete credited upstream resources with an Italian entrypoint and Codex path mapping.
 
 ## Validation
 
 The original two skill folders were checked with skill-creator's `quick_validate.py`. Packaging checks cover local links, metadata, exact source copies, and archive integrity. Before packaging, the video helpers were exercised on Windows with female Italian speech generation, still/video input, mixed frame rates, non-square pixels, full MP4 decoding, output preservation, and a timing plan beyond five minutes.
 
-The Brag adaptation is checked for skill structure, local references and installation parity; a sample Hyperframes render is not part of its packaging validation.
+The Brag translation is checked for skill structure, local references, installation parity and byte-for-byte preservation of every upstream file (the original entrypoint is retained as `SKILL.en.md`). A sample Hyperframes render is not part of its packaging validation.
 
 These checks establish structure and helper behavior. Each real demo still needs review of its recorded actions, synchronization, pronunciation, voice quality, and exported playback. No benchmark or token-saving claim is made.
 
@@ -111,4 +116,4 @@ These checks establish structure and helper behavior. Each real demo still needs
 
 The banner was generated with the built-in image generation tool in deliberately derpy MS Paint style: wobbly outlines, flat colors, awkward proportions, and a googly-eyed narrator. Its symbolic dashboard is not a screenshot or evidence of a real product. The [generation prompt](assets/saas-activity.prompt.md) is included.
 
-MIT licensed. See [LICENSE](LICENSE). Brag retains its upstream copyright and [MIT notice](skills/italian-saas-brag/LICENSE); third-party upstream audio is not bundled.
+MIT licensed. See [LICENSE](LICENSE). Brag retains its upstream copyright and [MIT notice](skills/italian-saas-brag/LICENSE); original upstream audio is bundled with its existing credits and license notes; the code MIT notice does not replace the individual audio terms.

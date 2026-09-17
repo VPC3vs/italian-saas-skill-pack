@@ -1,75 +1,182 @@
 ---
 name: italian-saas-brag
-description: Crea brevi video di lancio SaaS con Hyperframes, storyboard, poster e testi social, in italiano predefinito o inglese. Use for launch teasers, /brag, hype reels and bilingual IT/EN product launch videos; per walkthrough formativi estesi usa una skill demo.
+description: Trasforma il sito del progetto corrente in un breve video di lancio curato e condivisibile con Hyperframes. Usa per /brag, facciamolo conoscere, crea un video di lancio o condividi ciò che ho costruito. Legge direttamente il codice, senza richiedere URL live o screenshot. Italian-first; English and bilingual IT/EN supported.
 ---
 
-# Brag — il tuo prodotto, in primo piano
+# /brag
 
-Adattamento di Brag per agenti GPT/Codex con strumenti per file, terminale e rendering. Crea un teaser specifico del prodotto: apertura forte, UI riconoscibile, pochi benefici verificati e chiusura memorabile. Durata predefinita 15–25 secondi; rispetta una durata esplicita diversa.
+L'hai costruito. Ora fallo conoscere.
 
-## Invocazione e lingue
+## Lingua e compatibilità GPT/Codex
 
-Accetta `$italian-saas-brag`, `/brag` come testo della richiesta, oppure linguaggio naturale. Le opzioni sono convenzioni da interpretare, non comandi CLI registrati.
+Questa è la traduzione italiana della skill Brag originale: stesso workflow, stessi riferimenti tecnici completi, script e asset audio originali. Il testo inglese integrale è in [SKILL.en.md](SKILL.en.md); i riferimenti tecnici restano disponibili in inglese senza tagli.
 
-| Opzione | Valori e comportamento |
-| --- | --- |
-| `--lang` | `it` predefinito; `en` inglese; `both` due versioni IT/EN separate |
-| `--tone` | `default`, `polished`, `yc-parody`, `chaotic`, `deadpan`, `cinematic`, `app-store`, oppure direzione libera |
-| `--format` | `landscape` 1920×1080 predefinito; `vertical` 1080×1920; `square` 1080×1080 |
-| `--duration` | Secondi richiesti; altrimenti 15–25 |
-| `--title` | Nome del prodotto, altrimenti ricavato dalle fonti |
-| `--voice` | Narrazione richiesta; disattivata per impostazione predefinita |
-| `--no-music`, `--no-sfx` | Disabilitano rispettivamente musica ed effetti |
+Usa italiano come lingua predefinita per conversazione, piano, brief, testi a schermo, copione e copy social. Con `--lang en` o richiesta equivalente usa inglese; con `--lang both` produci le versioni italiana e inglese dello stesso video, prima IT e poi EN, in sottocartelle `it/` ed `en/`. Adatta i tempi alla lettura e alla narrazione della lingua scelta; conserva marchi, nomi, identificatori e testo della UI reale.
 
-Una richiesta esplicita in linguaggio naturale equivale all'opzione corrispondente. Non dedurre la lingua dell'output dalla lingua del repository: senza preferenze usa italiano. In caso di opzioni contraddittorie non risolvibili dal contesto, chiedi solo la scelta mancante.
+In Codex puoi invocare `$italian-saas-brag` oppure scrivere `/brag` nella richiesta. Nei riferimenti originali, risolvi `~/.claude/skills/brag/` e `skills/brag/` alla cartella effettiva di questa skill: `$CODEX_HOME/skills/italian-saas-brag/` (normalmente `~/.codex/skills/italian-saas-brag/`) oppure `skills/italian-saas-brag/` nel pack. Sostituisci questi percorsi anche negli esempi `uv`, senza modificare gli script. Adatta solo la sintassi shell al sistema operativo.
 
-Scrivi piano, brief, testi a schermo e copy in italiano naturale. Conserva nomi propri, marchi e identificatori; non tradurre arbitrariamente etichette presenti nelle schermate reali. Evita calchi, maiuscole all'inglese e slogan generici come “ottimizza il tuo workflow”.
+La voce rimane Kokoro tramite Hyperframes. L'esempio originale `af_heart` è per l'inglese; per l'italiano usa `npx hyperframes tts --list` e seleziona una voce italiana disponibile nello stesso provider. Non aggiungere selezione tra provider. Se non esiste una voce per la lingua richiesta, segnala quel limite anziché pronunciare l'italiano con una voce inglese o disattivare la narrazione richiesta.
 
-Con `--lang en`, produci testi e materiali in inglese. Con `--lang both`, prepara prima l'italiano e poi una localizzazione inglese dello stesso concept: stessi fatti e branding, testi e tempi adattati separatamente. Non stipare entrambe le lingue nella stessa schermata. Se l'utente chiede invece un unico video con sottotitoli inglesi, segui quella richiesta e verifica i sottotitoli sul montaggio finale.
+## Interpretazione dell'invocazione (prima di tutto)
 
-## 1. Comprendi il prodotto
+Prima di esaminare il progetto, analizza l'intera invocazione `/brag`. Se contiene `--voice`, imposta `voice.enabled = true`. Abilita la narrazione soltanto per quella esecuzione. Non abilitarla automaticamente e non ripiegare sul normale workflow senza voce.
 
-Leggi README, pagine e componenti principali, flusso utente, CSS/token e asset pertinenti. Parti dalle sorgenti effettive del progetto, senza presumere che esista `index.html`. Con URL o materiali forniti usa gli strumenti disponibili e dichiara i limiti dell'evidenza.
+`/brag` trasforma il sito o l'app del progetto corrente in un breve video di lancio curato e condivisibile usando Hyperframes. Ha uno scopo preciso, scelte creative nette e uno spirito divertente.
 
-Rispondi nel piano a queste nove domande:
-1. Che cosa fa l'app?
-2. Qual è il beneficio o elemento sorprendente sostenuto dalle fonti?
-3. Qual è l'aggancio visivo più forte?
-4. Quale UI, testo o elemento reale mostrerai?
-5. Qual è la durata minima efficace?
-6. Quale tono e direzione creativa sono adatti?
-7. Quale ruolo avrà l'audio?
-8. Quale frase accompagnerà la condivisione?
-9. Qual è il flusso ingresso → azione → risultato da mostrare?
+## Cosa fa questa skill
 
-Se è solo una landing page, dichiaralo e usa il suo elemento più forte. Distingui una ricostruzione animata da una registrazione reale. Non inventare metriche, testimonianze, disponibilità o funzionalità; una parodia non autorizza affermazioni ingannevoli sul prodotto.
+1. Legge il codice del progetto corrente per capire l'app.
+2. Progetta un breve concept Brag specifico per questo progetto.
+3. Scrive testi e storyboard del video.
+4. Passa a Hyperframes un brief di composizione mirato.
+5. Verifica, renderizza e scrive il testo per la condivisione.
 
-## 2. Piano e storyboard
+## Interpretazione delle opzioni
 
-Usa la cartella richiesta dall'utente o dall'ambiente; altrimenti `brag-output/`. Se esiste, crea una variante con timestamp, senza sovrascrivere lavori precedenti. Nella modalità bilingue usa sottocartelle `it/` e `en/`.
+L'utente può usare linguaggio naturale o opzioni:
 
-Per ogni versione scrivi `brag-plan.md` con risposte, fonti, angolo creativo, palette e font, formato, durata, copy provvisorio e storyboard. Ogni scena indica testo esatto, materiale da mostrare, ingresso/uscita, durata, interazioni simulate, transizione e intenzione audio. Leggi [toni e localizzazione](references/tones.md) quando scegli o affini il tono.
+```text
+/brag
+/brag --tone chaotic
+/brag --tone polished --format vertical
+/brag questo progetto. Fallo sembrare il lancio di una startup assurda.
+```
 
-Schema orientativo: apertura 2–3s → presentazione 2–4s → 2–3 momenti chiave → chiusura. Il flusso del prodotto, quando esiste, è il centro del video. Mostra almeno un elemento reale riconoscibile.
+Interpreta queste opzioni:
 
-Conta la somma delle durate. Mantieni le etichette brevi ferme circa 0,8s e le frasi circa 0,3s per parola, con almeno 1,2s; sono punti di partenza da verificare visivamente. Taglia il testo prima di accelerarlo. Le transizioni e i beat musicali non devono sottrarre tempo alla lettura.
+| Opzione | Valori | Predefinito |
+| --- | --- | --- |
+| `--tone` | Preset o descrizione libera | Ricavato dal progetto |
+| `--format` | `landscape`, `vertical`, `square` | `landscape` |
+| `--duration` | Secondi | Automatico (15–25s) |
+| `--no-music` | Flag | Musica attiva |
+| `--no-sfx` | Flag | Effetti attivi |
+| `--title` | Stringa | Ricavato dal progetto |
+| `--voice` | Flag | Narrazione disattivata |
+| `--lang` | `it`, `en`, `both` | `it` |
 
-Procedi dopo il piano se la richiesta autorizza il lavoro completo; rispetta eventuali revisioni richieste dall'utente.
+La voce è facoltativa. Con `--voice`, usa Kokoro tramite Hyperframes e non aggiungere logica di selezione del provider. Il workflow vocale originale usa intenzionalmente un solo provider.
 
-## 3. Composizione e audio
+Il tono può essere un preset (`default`, `polished`, `yc-parody`, `chaotic`, `deadpan`, `cinematic`, `app-store`) oppure una direzione creativa come “finto lancio Series A del 2016”, “mostra museale” o “pubblicità di un gioco mobile esageratamente prodotta”.
 
-Leggi [produzione](references/production.md). Scrivi `composition-brief.md` con percorsi, fonti, storyboard, lingua, identità visiva, audio selezionato e criteri di consegna. Crea il progetto in `composition/` tramite Hyperframes, seguendo la documentazione della versione disponibile. Questa skill possiede concept e contenuti; Hyperframes determina implementazione, animazione e rendering.
+Con una direzione libera, scegli il preset più vicino per ritmo e struttura, ma conserva la direzione dell'utente nel piano e nel brief di composizione.
 
-## 4. Verifica e consegna
+## Indicazioni per la narrazione
 
-Esegui il controllo della composizione previsto dalla CLI installata, correggi gli errori e genera il render finale. Verifica il file esportato, non soltanto il sorgente: durata e formato, apertura e chiusura, leggibilità, accenti, UI, transizioni, sincronizzazione e audio quando presente. Controlla separatamente IT ed EN.
+Con `--voice`, scrivi una narrazione che completi le immagini, senza limitarsi a leggere il testo visibile, segua il ritmo delle scene, suoni naturale e colloquiale e colleghi fluidamente le scene. Mantieni il copione conciso e specifico del prodotto, così la voce diventa parte del montaggio e non una traccia separata sovrapposta.
 
-Estrai `brag.jpg` da un momento forte e stabile, guardalo e correggi la scelta se contiene testo incompleto o transizioni. Non promettere che ogni piattaforma userà il primo frame come thumbnail; consegna il poster separato. Inseriscilo al frame iniziale solo quando utile o richiesto, preservando audio e durata e verificando il nuovo export.
+---
 
-Consegna per ogni lingua `brag.mp4`, `brag.jpg`, `brag-plan.md`, `composition-brief.md`, `share-copy.txt` (1–3 frasi pronte da pubblicare) e `composition/`. Aggiungi il copione solo con voce e i sottotitoli solo se richiesti. Riporta ciò che è stato effettivamente verificato e gli eventuali blocchi. La preparazione del copy non implica pubblicazione sui social.
+## Cartella di output
 
-## English quick start
+Per impostazione predefinita usa `brag-output/`. Per evitare di sovrascrivere esecuzioni precedenti, usa una cartella con timestamp:
 
-Use `$italian-saas-brag --lang en` for an English launch teaser, or `--lang both` for separate Italian-first and English versions. Add `--voice` for narration. Preserve verified product claims and adapt each language's timing independently. Default output is Italian, even when the source app is English.
+```text
+brag-output-2026-05-04-143022/
+```
 
-Origine e differenze: [provenienza](references/provenance.md).
+Usa un timestamp quando:
+- L'utente chiede esplicitamente una nuova esecuzione senza sovrascrivere i risultati precedenti.
+- Nel progetto esiste già una cartella `brag-output/`.
+
+Genera il timestamp all'inizio (`YYYY-MM-DD-HHmmss`) e usalo coerentemente per tutti i percorsi dell'esecuzione: piano, brief, composizione, render e copy social. Con `--lang both`, applica la stessa struttura separatamente dentro `it/` ed `en/`.
+
+---
+
+## Passaggio 1: esamina il progetto
+
+**Leggi:** [references/step-1-inspect.md](references/step-1-inspect.md)
+
+Esamina la cartella del progetto ed estrai le informazioni necessarie a pianificare il video Brag.
+
+**Criterio di completamento:** sai rispondere a tutte le 9 domande della griglia di pianificazione Brag.
+
+---
+
+## Passaggio 2: piano e storyboard
+
+**Leggi:** [references/step-2-plan.md](references/step-2-plan.md)
+
+Scrivi `<output-dir>/brag-plan.md`, dove `<output-dir>` è `brag-output/` o la variante con timestamp scelta sopra. Rispondi alla griglia di pianificazione. Scegli un angolo creativo preciso. Scrivi lo storyboard momento per momento, includendo scene, testi, tempi, transizioni e indicazioni SFX.
+
+Quando scegli la musica, includi una breve sezione `Music cue guidance`: leggi il preset della traccia inclusa da `assets/music/cues/`, se presente; altrimenti annota che i cue verranno rilevati durante la composizione. Ora qualsiasi traccia supporta la sincronizzazione ai beat: vedi `references/audio.md`. I metadati dei cue sono soltanto indicazioni temporali facoltative: storia, leggibilità, ritmo e chiarezza del prodotto restano prioritari.
+
+**Criterio di completamento:** `<output-dir>/brag-plan.md` esiste con uno storyboard completo. La somma delle durate delle scene è di 15–25 secondi.
+
+---
+
+## Passaggio 3: passa il lavoro a Hyperframes
+
+**Leggi:** le skill di dominio Hyperframes: `hyperframes-core`, `hyperframes-animation`, `hyperframes-creative`, `hyperframes-keyframes`, `hyperframes-cli`. /brag ha un proprio workflow: non avviare l'intervista iniziale dell'entry point `hyperframes` e non instradare il lavoro verso il suo workflow generico per video promozionali o di lancio.
+
+**Leggi:** [references/step-3-compose.md](references/step-3-compose.md)
+
+**Leggi:** [references/audio.md](references/audio.md)
+
+Scrivi il brief di composizione e usa Hyperframes per creare l'implementazione del video in `<output-dir>/composition/`.
+
+`/brag` decide angolo del prodotto, materiali sorgente, storyboard, tono, formato, selezione audio, indicazioni sui cue musicali e aspettative di consegna. Hyperframes decide struttura concreta della composizione, tempi esatti delle animazioni, meccaniche di animazione, runtime, regole di lint e workflow di rendering.
+
+**Criterio di completamento:** `npx hyperframes check` passa senza errori dentro `<output-dir>/composition/`, l'unico controllo nel browser prima del render; consulta hyperframes-cli per i controlli eseguiti.
+
+---
+
+## Passaggio 4: verifica, renderizza e consegna
+
+**Leggi:** [references/step-4-deliver.md](references/step-4-deliver.md)
+
+Verifica, mostra l'anteprima e renderizza in `<output-dir>/brag.mp4`. Seleziona il fotogramma migliore per il poster `<output-dir>/brag.jpg`, inseriscilo come frame 0 del video per la miniatura iniziale secondo il workflow originale, e scrivi `<output-dir>/share-copy.txt`.
+
+**Criterio di completamento:** `<output-dir>/brag.mp4` esiste. Il poster `<output-dir>/brag.jpg` è scelto dal fotogramma migliore, non da uno arbitrario, ed è incorporato come frame 0 di `brag.mp4`. Il copy social è scritto.
+
+---
+
+## Sistema dei toni
+
+`/brag` include sette preset. Ognuno modifica energia dei testi, ritmo, personalità tipografica e stile delle transizioni. I preset sono punti di partenza, non limiti.
+
+Definizioni complete: [references/tones.md](references/tones.md)
+
+| Tono | Energia | In una frase |
+| --- | --- | --- |
+| `default` | Giocoso, pulito, pronto da condividere | Il predefinito di buon umore |
+| `polished` | Serio, elegante | Per progetti che non sono uno scherzo |
+| `yc-parody` | Serietà impassibile da startup | Finta serietà applicata a progetti assurdi |
+| `chaotic` | Rapido, rumoroso, aggressivo | Esagerato e fuori controllo |
+| `deadpan` | Calmo, asciutto, sottotono | La battuta è che niente è una battuta |
+| `cinematic` | Drammatico, da trailer | Grandi movimenti, affermazioni ancora più grandi |
+| `app-store` | Fluido, schede funzionalità pulite | Aziendale, ma non noioso |
+
+Consenti sempre a una direzione creativa libera di affinare o sostituire il preset.
+
+---
+
+## Leggi creative
+
+Valgono per ogni video Brag, indipendentemente dal tono.
+
+**Breve.** 15–25 secondi. Non un secondo in più senza un motivo.
+
+**Leggibile.** Mantieni alto il ritmo con movimento e tagli, mai facendo lampeggiare i testi. Ogni riga deve rimanere abbastanza a lungo da essere letta: un'etichetta breve circa 0,8s da ferma; una frase circa 0,3s per parola. Entrata rapida, poi pausa; mai entrata rapida e subito via.
+
+**Specifico.** Il video deve sembrare realizzato per questo preciso progetto, non per un progetto qualsiasi.
+
+**Mostra il prodotto.** Almeno una scena deve mostrare UI, testi o un elemento visivo chiave reali del prodotto. Niente riempitivi astratti.
+
+**Niente linguaggio SaaS generico.** “Ottimizza il tuo workflow” è vietato. Usa i testi e le affermazioni effettivi del progetto.
+
+**L'apertura è tutto.** I primi 2 secondi decidono se qualcuno continua a guardare. Pianifica l'aggancio prima di tutto il resto.
+
+**L'umorismo deve meritarsi il suo posto.** Deve nascere dall'assurdità del progetto, non dallo sforzo di essere divertenti.
+
+**Schema:**
+
+```text
+Aggancio (2–3s) → Presentazione (2–4s) → 2–3 punti forti (5–12s) → Battuta finale/chiusura (2–4s)
+```
+
+Adattalo. Non tutti i progetti hanno bisogno di esattamente 3 punti forti. Lo schema è una forma iniziale, non un modello rigido.
+
+## Provenienza
+
+Traduzione di [latent-spaces/brag](https://github.com/latent-spaces/brag), commit `1f8d9ade17d0ad4419cca9305fbc1398a4dd5b39`. [Licenza originale](LICENSE). Musica, SFX, cue, analisi e script sono inclusi senza modifiche; i crediti e le note upstream restano negli asset e in [references/audio.md](references/audio.md).
