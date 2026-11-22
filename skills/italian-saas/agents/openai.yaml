@@ -1,0 +1,4 @@
+interface:
+  display_name: "Italian SaaS"
+  short_description: "Manuali, demo narrate e video di lancio per SaaS"
+  default_prompt: "Usa $italian-saas per preparare una demo narrata in italiano del mio prodotto."
